@@ -1,0 +1,117 @@
+{
+  "$schema": "https://registry.modelcontextprotocol.io/schema/server.json",
+  "name": "io.github.crypto-goatz/rocket-plus-mcp",
+  "displayName": "Rocket+ MCP Server",
+  "description": "50+ AI automation tools for CRM, content generation, workflows, A/B testing, and marketing automation. Integrates with GoHighLevel CRM.",
+  "version": "2.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "RocketOpp",
+    "email": "support@rocketadd.com",
+    "url": "https://rocketadd.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Crypto-Goatz/rocket-plus-mcp"
+  },
+  "homepage": "https://rocketadd.com/docs/integrations/mcp",
+  "bugs": {
+    "url": "https://github.com/Crypto-Goatz/rocket-plus-mcp/issues"
+  },
+  "categories": [
+    "crm",
+    "marketing",
+    "automation",
+    "ai",
+    "content-generation"
+  ],
+  "tags": [
+    "mcp",
+    "claude",
+    "ai",
+    "crm",
+    "gohighlevel",
+    "marketing-automation",
+    "workflows",
+    "content-generation",
+    "a/b-testing",
+    "seo",
+    "lead-generation"
+  ],
+  "packages": {
+    "npm": "rocket-plus-mcp"
+  },
+  "installation": {
+    "claude_desktop": {
+      "command": "npx",
+      "args": ["-y", "rocket-plus-mcp"],
+      "env": {
+        "ROCKET_API_URL": "https://rocketadd.com",
+        "ROCKET_API_KEY": "YOUR_API_KEY"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "get_contacts",
+      "description": "Get a list of contacts from the CRM"
+    },
+    {
+      "name": "create_contact",
+      "description": "Create a new contact in the CRM"
+    },
+    {
+      "name": "send_sms",
+      "description": "Send an SMS message to a contact"
+    },
+    {
+      "name": "send_email",
+      "description": "Send email to a contact"
+    },
+    {
+      "name": "rocketflow_deploy",
+      "description": "Deploy JSON workflow to CRM"
+    },
+    {
+      "name": "agent_execute",
+      "description": "Execute an AI agent workflow"
+    },
+    {
+      "name": "course_generate",
+      "description": "Generate complete course with AI"
+    },
+    {
+      "name": "content_generate",
+      "description": "Generate marketing content with AI"
+    },
+    {
+      "name": "apex_create_test",
+      "description": "Create A/B test experiment"
+    },
+    {
+      "name": "seo_analyze",
+      "description": "Analyze page for SEO issues"
+    }
+  ],
+  "resources": [
+    {
+      "uri": "rocket://location/info",
+      "description": "Current CRM location information"
+    },
+    {
+      "uri": "rocket://subscription/status",
+      "description": "Subscription plan and usage"
+    },
+    {
+      "uri": "rocket://mods/available",
+      "description": "List of available mods"
+    }
+  ],
+  "authentication": {
+    "type": "api_key",
+    "instructions": "Get your API key from https://rocketadd.com/settings under API Keys section"
+  },
+  "requirements": {
+    "node": ">=18.0.0"
+  }
+}
