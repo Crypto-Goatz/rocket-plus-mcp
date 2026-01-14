@@ -1,17 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.Crypto-Goatz/rocket-plus-mcp",
-  "description": "50+ AI tools for CRM, content, workflows & marketing automation. GoHighLevel integration.",
+  "description": "56+ AI tools for CRM, content, workflows, SkillForge & marketing automation.",
   "repository": {
     "url": "https://github.com/Crypto-Goatz/rocket-plus-mcp.git",
     "source": "github"
   },
-  "version": "2.0.1",
+  "version": "2.1.0",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "rocket-plus-mcp",
-      "version": "2.0.1",
+      "version": "2.1.0",
       "runtimeHint": "npx",
       "transport": {
         "type": "stdio"

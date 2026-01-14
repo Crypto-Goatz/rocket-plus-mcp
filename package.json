@@ -1,8 +1,8 @@
 {
   "name": "rocket-plus-mcp",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "mcpName": "io.github.Crypto-Goatz/rocket-plus-mcp",
-  "description": "Rocket+ MCP Server - 50+ AI automation tools for CRM, content, workflows, and more",
+  "description": "Rocket+ MCP Server - 56+ AI automation tools for CRM, content, workflows, SkillForge, and more",
   "type": "module",
   "main": "dist/server.js",
   "bin": {
@@ -26,7 +26,9 @@
     "agents",
     "content-generation",
     "seo",
-    "marketing-automation"
+    "marketing-automation",
+    "skillforge",
+    "ai-skills"
   ],
   "author": "Rocket+ <support@rocketadd.com>",
   "license": "MIT",

@@ -19,7 +19,7 @@ import {
 const server = new Server(
   {
     name: 'rocket-plus-mcp',
-    version: '2.0.0',
+    version: '2.1.0',
   },
   {
     capabilities: {
@@ -826,6 +826,81 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           type: 'object',
           properties: {}
         }
+      },
+
+      // ========================================================
+      // SKILLFORGE - AI Skill Execution
+      // ========================================================
+      {
+        name: 'skillforge_execute',
+        description: 'Execute a SkillForge AI skill. Available skills: lead-qualifier (AI lead scoring), proposal-generator (auto-generate proposals), content-loop (blog + social campaigns).',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            skillId: { type: 'string', description: 'Skill ID: lead-qualifier, proposal-generator, content-loop, or custom skill ID' },
+            contactId: { type: 'string', description: 'Contact ID to execute skill for' },
+            input: { type: 'object', description: 'Additional input data for the skill' },
+            async: { type: 'boolean', description: 'Run asynchronously (default: false)' }
+          },
+          required: ['skillId', 'contactId']
+        }
+      },
+      {
+        name: 'skillforge_list',
+        description: 'List all available SkillForge skills (pre-built and custom)',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            category: { type: 'string', description: 'Filter by category: lead-gen, sales, content, custom' }
+          }
+        }
+      },
+      {
+        name: 'skillforge_status',
+        description: 'Check the status of a SkillForge execution',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            executionId: { type: 'string', description: 'Execution ID to check' }
+          },
+          required: ['executionId']
+        }
+      },
+      {
+        name: 'skillforge_results',
+        description: 'Get the results of a completed SkillForge execution',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            executionId: { type: 'string', description: 'Execution ID' },
+            format: { type: 'string', description: 'Output format: full, summary, actions-only' }
+          },
+          required: ['executionId']
+        }
+      },
+      {
+        name: 'skillforge_create',
+        description: 'Create a custom SkillForge skill from a description',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            name: { type: 'string', description: 'Skill name' },
+            description: { type: 'string', description: 'What the skill should do' },
+            triggers: { type: 'array', description: 'CRM events that trigger this skill' },
+            outputs: { type: 'array', description: 'Expected outputs (tags, fields, actions)' }
+          },
+          required: ['name', 'description']
+        }
+      },
+      {
+        name: 'skillforge_usage',
+        description: 'Get SkillForge usage statistics and billing info',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            period: { type: 'string', description: 'Period: today, week, month, all' }
+          }
+        }
       }
     ]
   }
@@ -926,6 +1001,12 @@ server.setRequestHandler(ListResourcesRequestSchema, async () => {
         name: 'RSS Feeds',
         description: 'Configured RSS feeds',
         mimeType: 'application/json'
+      },
+      {
+        uri: 'rocket://skillforge/skills',
+        name: 'SkillForge Skills',
+        description: 'Available SkillForge AI skills',
+        mimeType: 'application/json'
       }
     ]
   }
@@ -955,6 +1036,9 @@ server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
         break
       case 'rocket://rss/feeds':
         endpoint = '/api/mods/rss-content-engine'
+        break
+      case 'rocket://skillforge/skills':
+        endpoint = '/api/mods/skillforge/skills'
         break
       default:
         throw new Error(`Unknown resource: ${uri}`)
