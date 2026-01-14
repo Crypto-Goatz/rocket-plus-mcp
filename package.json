@@ -1,6 +1,7 @@
 {
   "name": "rocket-plus-mcp",
-  "version": "2.0.0",
+  "version": "2.0.1",
+  "mcpName": "io.github.Crypto-Goatz/rocket-plus-mcp",
   "description": "Rocket+ MCP Server - 50+ AI automation tools for CRM, content, workflows, and more",
   "type": "module",
   "main": "dist/server.js",
@@ -31,7 +32,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Crypto-Goatz/rocket-plus-mcp"
+    "url": "git+https://github.com/Crypto-Goatz/rocket-plus-mcp.git"
   },
   "homepage": "https://rocketadd.com/docs/integrations/mcp",
   "bugs": {

@@ -23,3 +23,8 @@ npm-debug.log*
 # Package lock (use package-lock.json from npm)
 yarn.lock
 pnpm-lock.yaml
+
+# MCP Publisher
+.mcpregistry_*
+mcp-publisher
+publisher.tar.gz
