@@ -1,35 +1,130 @@
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.Crypto-Goatz/rocket-plus-mcp",
-  "description": "56+ AI tools for CRM, content, workflows, SkillForge & marketing automation.",
-  "repository": {
-    "url": "https://github.com/Crypto-Goatz/rocket-plus-mcp.git",
-    "source": "github"
+  "$schema": "https://raw.githubusercontent.com/anthropics/mcp-schema/refs/heads/main/schemas/server.schema.json",
+  "name": "rocket-plus-mcp",
+  "displayName": "Rocket+ CRM Automation",
+  "description": "AI-powered CRM automation with 56+ tools for contacts, leads, content generation, courses, workflows, and marketing. Natural language control over your CRM - create contacts, generate courses, automate follow-ups, and more.",
+  "version": "2.2.0",
+  "vendor": {
+    "name": "RocketOpp",
+    "url": "https://rocketopp.com"
   },
-  "version": "2.1.0",
+  "homepage": "https://rocketadd.com/docs/integrations/mcp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Crypto-Goatz/rocket-plus-mcp.git"
+  },
+  "icon": "https://rocketadd.com/rocket-icon.png",
+  "license": "MIT",
+  "categories": ["crm", "automation", "marketing", "ai", "content"],
   "packages": [
     {
-      "registryType": "npm",
-      "identifier": "rocket-plus-mcp",
-      "version": "2.1.0",
-      "runtimeHint": "npx",
-      "transport": {
-        "type": "stdio"
-      },
-      "environmentVariables": [
+      "registry_name": "npm",
+      "name": "rocket-plus-mcp",
+      "version": "2.2.0",
+      "runtime": "node",
+      "runtime_arguments": [],
+      "package_arguments": [],
+      "environment_variables": [
         {
           "name": "ROCKET_API_KEY",
-          "description": "Your Rocket+ API key. Get one at https://rocketadd.com/settings under API Keys.",
-          "isRequired": true,
-          "isSecret": true
-        },
-        {
-          "name": "ROCKET_API_URL",
-          "description": "Rocket+ API base URL (default: https://rocketadd.com)",
-          "isRequired": false,
-          "isSecret": false
+          "description": "Your Rocket+ API key from https://rocketadd.com/settings",
+          "required": true,
+          "secret": true
         }
       ]
+    }
+  ],
+  "tools": [
+    {
+      "name": "get_contacts",
+      "description": "Search and retrieve contacts from the CRM. Filter by query, tags, or limit results."
+    },
+    {
+      "name": "create_contact",
+      "description": "Create a new contact with name, email, phone, tags, and custom fields."
+    },
+    {
+      "name": "send_sms",
+      "description": "Send an SMS message to a contact."
+    },
+    {
+      "name": "send_email",
+      "description": "Send an email to a contact with subject and HTML body."
+    },
+    {
+      "name": "course_generate",
+      "description": "Generate a complete course with modules, lessons, and quizzes using AI."
+    },
+    {
+      "name": "content_generate",
+      "description": "Generate marketing content - blog posts, emails, social posts, landing pages."
+    },
+    {
+      "name": "get_opportunities",
+      "description": "Get deals/opportunities from sales pipelines."
+    },
+    {
+      "name": "create_opportunity",
+      "description": "Create a new deal in a pipeline with value and contact association."
+    },
+    {
+      "name": "rocketflow_deploy",
+      "description": "Deploy workflow automations, pipelines, custom fields, and tags to the CRM."
+    },
+    {
+      "name": "agent_execute",
+      "description": "Run AI agents for lead qualification, proposals, and automated follow-ups."
+    },
+    {
+      "name": "skillforge_execute",
+      "description": "Execute AI skills like lead scoring, proposal generation, and content loops."
+    },
+    {
+      "name": "insights_analyze",
+      "description": "Get AI-powered insights and analytics from your CRM data."
+    },
+    {
+      "name": "seo_analyze",
+      "description": "Analyze pages for SEO issues and get optimization suggestions."
+    }
+  ],
+  "prompts": [
+    {
+      "name": "get_my_leads",
+      "description": "Get recent leads from the CRM",
+      "template": "Get my last {{count:5}} contacts"
+    },
+    {
+      "name": "create_course",
+      "description": "Generate a new course on any topic",
+      "template": "Create a course about {{topic}} for {{audience:beginners}}"
+    },
+    {
+      "name": "follow_up",
+      "description": "Send a follow-up message to a contact",
+      "template": "Send a follow-up SMS to {{contact_name}} saying {{message}}"
+    },
+    {
+      "name": "generate_content",
+      "description": "Create marketing content",
+      "template": "Write a {{type:blog post}} about {{topic}} in a {{tone:professional}} tone"
+    },
+    {
+      "name": "analyze_performance",
+      "description": "Get insights on your CRM performance",
+      "template": "Analyze my {{metric:contacts}} performance for the last {{timeframe:30 days}}"
+    }
+  ],
+  "resources": [
+    {
+      "uri": "rocket://location/info",
+      "name": "CRM Location Info",
+      "description": "Current CRM location and account details"
+    },
+    {
+      "uri": "rocket://mods/available",
+      "name": "Available Mods",
+      "description": "List of Rocket+ mods enabled for your account"
     }
   ]
 }

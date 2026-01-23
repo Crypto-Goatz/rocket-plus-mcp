@@ -1,12 +1,11 @@
 {
   "name": "rocket-plus-mcp",
-  "version": "2.1.0",
-  "mcpName": "io.github.Crypto-Goatz/rocket-plus-mcp",
-  "description": "Rocket+ MCP Server - 56+ AI automation tools for CRM, content, workflows, SkillForge, and more",
+  "version": "2.2.0",
+  "description": "AI-powered CRM automation with 56+ tools. Natural language control for contacts, courses, content, workflows & marketing. Works with Claude Desktop, Claude Code, and any MCP client.",
   "type": "module",
   "main": "dist/server.js",
   "bin": {
-    "rocket-plus-mcp": "./dist/server.js"
+    "rocket-plus-mcp": "dist/server.js"
   },
   "scripts": {
     "build": "tsc",
@@ -18,19 +17,29 @@
     "mcp",
     "model-context-protocol",
     "claude",
+    "claude-desktop",
+    "claude-code",
     "ai",
     "automation",
     "crm",
-    "gohighlevel",
-    "workflows",
-    "agents",
+    "leads",
+    "contacts",
+    "courses",
     "content-generation",
-    "seo",
+    "email-marketing",
+    "sms",
+    "workflows",
+    "pipelines",
+    "ai-agents",
     "marketing-automation",
-    "skillforge",
-    "ai-skills"
+    "lead-generation",
+    "sales-automation"
   ],
-  "author": "Rocket+ <support@rocketadd.com>",
+  "author": {
+    "name": "RocketOpp",
+    "email": "support@rocketadd.com",
+    "url": "https://rocketopp.com"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -45,10 +54,11 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "server.json"
   ],
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^0.5.0"
+    "@modelcontextprotocol/sdk": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
