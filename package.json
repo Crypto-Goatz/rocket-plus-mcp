@@ -1,6 +1,6 @@
 {
   "name": "rocket-plus-mcp",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "AI-powered CRM automation with 56+ tools. Natural language control for contacts, courses, content, workflows & marketing. Works with Claude Desktop, Claude Code, and any MCP client.",
   "type": "module",
   "main": "dist/server.js",

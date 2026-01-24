@@ -45,7 +45,7 @@ let sessionState: {
 function showWelcome() {
   console.error('')
   console.error('╔══════════════════════════════════════════════════════════════╗')
-  console.error('║        🚀 Rocket+ MCP Server v2.2.0                          ║')
+  console.error('║        🚀 Rocket+ MCP Server v3.0.0                          ║')
   console.error('║   Multi-MCP Workflow Orchestration Hub                       ║')
   console.error('╠══════════════════════════════════════════════════════════════╣')
   console.error('║   Connect: Stripe • Shopify • GHL • Supabase • Vercel        ║')
@@ -482,6 +482,91 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           type: 'object',
           properties: {}
         }
+      },
+
+      // ========================================================
+      // MCP ORCHESTRATION (Multi-MCP Hub)
+      // ========================================================
+      {
+        name: 'mcp_call_server',
+        description: 'Call a tool on any connected MCP server. Rocket+ acts as a hub, routing calls to GHL MCP, Stripe MCP, Shopify MCP, and more.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            serverId: { type: 'string', description: 'Server ID: ghl-mcp, stripe-mcp, shopify-mcp, supabase, rocket-plus' },
+            tool: { type: 'string', description: 'Tool name on the target server' },
+            serverArgs: { type: 'object', description: 'Arguments to pass to the tool' }
+          },
+          required: ['serverId', 'tool']
+        }
+      },
+      {
+        name: 'mcp_list_servers',
+        description: 'List all available MCP servers and their connection status.',
+        inputSchema: {
+          type: 'object',
+          properties: {}
+        }
+      },
+      {
+        name: 'list_mcp_connections',
+        description: 'List your connected MCP servers with usage stats.',
+        inputSchema: {
+          type: 'object',
+          properties: {}
+        }
+      },
+
+      // ========================================================
+      // GHL MCP INTEGRATION
+      // ========================================================
+      {
+        name: 'connect_ghl_mcp',
+        description: 'Connect GoHighLevel MCP server using your Private Integration Token (PIT). This enables direct access to GHL\'s native MCP tools for contacts, conversations, workflows, calendars, and more.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            pit: { type: 'string', description: 'Your GHL Private Integration Token (starts with pit-)' },
+            ghlLocationId: { type: 'string', description: 'Your GHL Location ID (optional, defaults to your Rocket+ location)' }
+          },
+          required: ['pit']
+        }
+      },
+      {
+        name: 'disconnect_ghl_mcp',
+        description: 'Disconnect GoHighLevel MCP server.',
+        inputSchema: {
+          type: 'object',
+          properties: {}
+        }
+      },
+      {
+        name: 'ghl_mcp_status',
+        description: 'Check your GHL MCP connection status and available tools.',
+        inputSchema: {
+          type: 'object',
+          properties: {}
+        }
+      },
+      {
+        name: 'ghl_mcp_tools',
+        description: 'List all available tools from the GHL MCP server.',
+        inputSchema: {
+          type: 'object',
+          properties: {}
+        }
+      },
+      {
+        name: 'ghl_mcp_call',
+        description: 'Execute a specific GHL MCP tool directly. Shorthand for mcp_call_server with serverId="ghl-mcp".',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            tool: { type: 'string', description: 'GHL MCP tool name to execute' }
+          },
+          required: ['tool'],
+          additionalProperties: true
+        }
       }
     ]
   }
@@ -676,15 +761,36 @@ server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
         break
 
       case 'rocket://connections':
-        data = {
-          connections: [
-            { name: 'GHL CRM', status: 'connected', type: 'crm' },
-            { name: 'Stripe', status: 'available', type: 'payments' },
-            { name: 'Shopify', status: 'available', type: 'ecommerce' },
-            { name: 'Supabase', status: 'available', type: 'database' },
-            { name: 'Vercel', status: 'available', type: 'hosting' },
-            { name: 'Slack', status: 'available', type: 'communication' }
-          ]
+        // Fetch actual connection status from API
+        try {
+          const connResult = await apiCall('/api/mcp/execute', 'POST', {
+            tool: 'list_mcp_connections',
+            args: {}
+          })
+          data = {
+            connected: connResult.connections || [],
+            available: [
+              { id: 'ghl-mcp', name: 'GoHighLevel MCP', type: 'crm', description: 'Native GHL CRM integration via MCP' },
+              { id: 'stripe-mcp', name: 'Stripe MCP', type: 'payments', description: 'Payment processing' },
+              { id: 'shopify-mcp', name: 'Shopify MCP', type: 'ecommerce', description: 'E-commerce integration' },
+              { id: 'supabase-mcp', name: 'Supabase MCP', type: 'database', description: 'Database operations' },
+              { id: 'vercel-mcp', name: 'Vercel MCP', type: 'hosting', description: 'Deployment automation' },
+              { id: 'slack-mcp', name: 'Slack MCP', type: 'communication', description: 'Team notifications' }
+            ],
+            howToConnect: 'Use connect_ghl_mcp or mcp_call_server to connect services'
+          }
+        } catch {
+          data = {
+            connected: [],
+            available: [
+              { id: 'ghl-mcp', name: 'GoHighLevel MCP', type: 'crm' },
+              { id: 'stripe-mcp', name: 'Stripe MCP', type: 'payments' },
+              { id: 'shopify-mcp', name: 'Shopify MCP', type: 'ecommerce' },
+              { id: 'supabase-mcp', name: 'Supabase MCP', type: 'database' },
+              { id: 'vercel-mcp', name: 'Vercel MCP', type: 'hosting' },
+              { id: 'slack-mcp', name: 'Slack MCP', type: 'communication' }
+            ]
+          }
         }
         break
 
